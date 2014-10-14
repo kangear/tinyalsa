@@ -1,12 +1,20 @@
 OBJCFLAGS = #-static
+ifeq ($(TOOLBOX_STYLE), TRUE)
+CFLAGS = -c -fPIC -Wall -DTOOLBOX_STYLE
+else
 CFLAGS = -c -fPIC -Wall
+endif
 INC = include
 OBJECTS = mixer.o pcm.o
+TINYALSA_OBJECTS = tinyplay.o tinycap.o tinymix.o tinypcminfo.o tinyalsa.o
 LIB = libtinyalsa.so
 STATICLIB = libtinyalsa.a
 CROSS_COMPILE =
 
 all: $(LIB) $(STATICLIB) tinyplay tinycap tinymix tinypcminfo
+
+tinyalsa: $(LIB) $(STATICLIB) $(TINYALSA_OBJECTS)
+	$(CROSS_COMPILE)gcc $(TINYALSA_OBJECTS) $(OBJCFLAGS) -L. -ltinyalsa -o tinyalsa
 
 tinyplay: $(LIB) tinyplay.o
 	$(CROSS_COMPILE)gcc tinyplay.o $(OBJCFLAGS) -L. -ltinyalsa -o tinyplay
@@ -31,4 +39,4 @@ $(LIB): $(OBJECTS)
 
 clean:
 	-rm $(STATICLIB) $(LIB) $(OBJECTS) tinyplay.o tinyplay tinycap.o tinycap \
-	tinymix.o tinymix tinypcminfo.o tinypcminfo
+	tinymix.o tinymix tinypcminfo.o tinypcminfo tinyalsa.o tinyalsa

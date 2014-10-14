@@ -71,7 +71,11 @@ void stream_close(int sig)
     close = 1;
 }
 
+#ifdef TOOLBOX_STYLE
+int tinyplay_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif //TOOLBOX_STYLE
 {
     FILE *file;
     struct riff_wave_header riff_wave_header;

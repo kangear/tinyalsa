@@ -69,7 +69,11 @@ void sigint_handler(int sig)
     capturing = 0;
 }
 
+#ifdef TOOLBOX_STYLE
+int tinycap_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif //TOOLBOX_STYLE
 {
     FILE *file;
     struct wav_header header;
