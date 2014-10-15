@@ -4,6 +4,14 @@
 
 int main(int, char **);
 
+static void usage()
+{
+    printf("Repo: https://github.com/tinyalsa/tinyalsa                      \
+            \n\nUsage: tinyalsa [function] [arguments]...                   \
+            \n\nCurrently defined functions:                                \
+            \n\ttinymix/mix, tinycap/cap, tinyplay/play, tinypcminfo/pcminfo\n");
+}
+
 static int tinyalsa_main(int argc, char **argv)
 {
     // "tinyalsa foo ..." is equivalent to "foo ..."
@@ -11,9 +19,11 @@ static int tinyalsa_main(int argc, char **argv)
         return main(argc - 1, argv + 1);
     } else {
         printf("Tinyalsa!\n");
+        usage();
         return 0;
     }
 }
+
 /*
 #define TOOL(name) int name##_main(int, char**);
 #include "tools.h"
@@ -24,7 +34,7 @@ extern int tinycap_main(int argc, char **argv);
 extern int tinyplay_main(int argc, char **argv);
 extern int tinypcminfo_main(int argc, char **argv);
 
-static struct 
+static struct
 {
     const char *name;
     int (*func)(int, char**);
