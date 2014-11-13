@@ -100,8 +100,12 @@ struct mixer *mixer_open(unsigned int card)
 
     snprintf(fn, sizeof(fn), "/dev/snd/controlC%u", card);
     fd = open(fn, O_RDWR);
-    if (fd < 0)
+    if (fd < 0) {
+      snprintf(fn, sizeof(fn), "/dev/controlC%u", card);
+      fd = open(fn, O_RDWR);
+      if (fd < 0)
         return 0;
+    }
 
     memset(&elist, 0, sizeof(elist));
     if (ioctl(fd, SNDRV_CTL_IOCTL_ELEM_LIST, &elist) < 0)
@@ -500,4 +504,3 @@ int mixer_ctl_set_enum_by_string(struct mixer_ctl *ctl, const char *string)
 
     return -EINVAL;
 }
-

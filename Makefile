@@ -1,4 +1,4 @@
-OBJCFLAGS = #-static
+OBJCFLAGS = -static
 ifeq ($(TOOLBOX_STYLE), TRUE)
 CFLAGS = -c -fPIC -Wall -DTOOLBOX_STYLE
 else
@@ -16,6 +16,7 @@ all: $(LIB) $(STATICLIB) tinyplay tinycap tinymix tinypcminfo
 tinyalsa: $(LIB) $(STATICLIB) $(TINYALSA_OBJECTS)
 	$(CROSS_COMPILE)gcc $(TINYALSA_OBJECTS) $(OBJCFLAGS) -L. -ltinyalsa -o tinyalsa
 
+#how to build: make TOOLBOX_STYLE=TRUE tinyalsa CROSS_COMPILE=arm-linux-
 tinyplay: $(LIB) tinyplay.o
 	$(CROSS_COMPILE)gcc tinyplay.o $(OBJCFLAGS) -L. -ltinyalsa -o tinyplay
 
