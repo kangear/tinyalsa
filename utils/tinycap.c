@@ -72,7 +72,11 @@ void sigint_handler(int sig)
     }
 }
 
+#ifdef TOOLBOX_STYLE
+int tinycap_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif //TOOLBOX_STYLE
 {
     FILE *file;
     struct wav_header header;
@@ -265,4 +269,3 @@ unsigned int capture_sample(FILE *file, unsigned int card, unsigned int device,
     pcm_close(pcm);
     return total_frames_read;
 }
-

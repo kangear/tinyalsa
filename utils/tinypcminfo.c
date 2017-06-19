@@ -97,7 +97,11 @@ static inline const char *pcm_get_format_name(unsigned bit_index)
     return bit_index < ARRAY_SIZE(format_lookup) ? format_lookup[bit_index] : NULL;
 }
 
+#ifdef TOOLBOX_STYLE
+int tinypcminfo_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif //TOOLBOX_STYLE
 {
     unsigned int device = 0;
     unsigned int card = 0;

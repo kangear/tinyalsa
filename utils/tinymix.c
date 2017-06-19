@@ -63,7 +63,11 @@ void version(void)
     printf("tinymix version 2.0 (tinyalsa version %s)\n", TINYALSA_VERSION_STRING);
 }
 
+#ifdef TOOLBOX_STYLE
+int tinymix_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif //TOOLBOX_STYLE
 {
     struct mixer *mixer;
     int card = 0;
@@ -405,4 +409,3 @@ static void tinymix_set_value(struct mixer *mixer, const char *control,
         }
     }
 }
-

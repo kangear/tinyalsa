@@ -309,7 +309,11 @@ void print_usage(const char *argv0)
     fprintf(stderr, "-M | --mmap                    Use memory mapped IO to play audio\n");
 }
 
-int main(int argc, const char **argv)
+#ifdef TOOLBOX_STYLE
+int tinyplay_main(int argc, char **argv)
+#else
+int main(int argc, char **argv)
+#endif //TOOLBOX_STYLE
 {
     struct cmd cmd;
     struct ctx ctx;
@@ -420,4 +424,3 @@ int play_sample(struct ctx *ctx)
     free(buffer);
     return 0;
 }
-
