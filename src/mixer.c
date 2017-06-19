@@ -207,7 +207,12 @@ struct mixer *mixer_open(unsigned int card)
     snprintf(fn, sizeof(fn), "/dev/snd/controlC%u", card);
     fd = open(fn, O_RDWR);
     if (fd < 0)
-        return 0;
+    {
+        snprintf(fn, sizeof(fn), "/dev/controlC%u", card);
+        fd = open(fn, O_RDWR);
+        if (fd < 0)
+            return 0;
+    }
 
     mixer = calloc(1, sizeof(*mixer));
     if (!mixer)

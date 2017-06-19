@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 
     mixer = mixer_open(card);
     if (!mixer) {
-        fprintf(stderr, "Failed to open mixer\n");
+        fprintf(stderr, "Failed to open mixer: %m\n");
         return EXIT_FAILURE;
     }
 
